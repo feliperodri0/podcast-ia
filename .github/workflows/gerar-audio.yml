@@ -1,0 +1,59 @@
+name: Gerar áudio dos episódios
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "roteiros/**.md"
+  workflow_dispatch:
+    inputs:
+      roteiro:
+        description: "Caminho de um roteiro específico pra (re)gerar (opcional; vazio = gera todos que ainda não têm áudio)"
+        required: false
+        default: ""
+
+jobs:
+  gerar-audio:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependências
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m venv .venv
+          .venv/bin/pip install -q -r scripts/requirements.txt
+
+      - name: Gerar áudio
+        run: |
+          if [ -n "${{ github.event.inputs.roteiro }}" ]; then
+            .venv/bin/python scripts/gerar_audio.py "${{ github.event.inputs.roteiro }}"
+          else
+            for roteiro in roteiros/*.md; do
+              slug=$(basename "$roteiro" .md)
+              audio="audio/${slug}.mp3"
+              if [ ! -f "$audio" ]; then
+                echo "Gerando áudio para $roteiro"
+                .venv/bin/python scripts/gerar_audio.py "$roteiro"
+              fi
+            done
+          fi
+
+      - name: Commit e push do áudio gerado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add audio/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: gera áudio via GitHub Actions"
+            git push
+          else
+            echo "Nada novo pra commitar."
+          fi
