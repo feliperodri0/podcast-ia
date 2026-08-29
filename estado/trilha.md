@@ -1,7 +1,7 @@
 # Trilha base — progressão
 
 - [x] 01. O que é IA? (IA simbólica vs. estatística, por que "aprender")
-- [ ] 02. O que é Machine Learning? (dados, features, treino vs. inferência)
+- [x] 02. O que é Machine Learning? (dados, features, treino vs. inferência)
 - [ ] 03. Aprendizado supervisionado, não-supervisionado e por reforço
 - [ ] 04. Redes neurais: o neurônio, camadas, backpropagation
 - [ ] 05. Deep Learning e por que 2012 mudou tudo
