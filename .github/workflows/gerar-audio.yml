@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -33,8 +35,12 @@ jobs:
 
       - name: Gerar áudio
         run: |
+          : > processados.txt
           if [ -n "${{ github.event.inputs.roteiro }}" ]; then
-            .venv/bin/python scripts/gerar_audio.py "${{ github.event.inputs.roteiro }}"
+            roteiro="${{ github.event.inputs.roteiro }}"
+            echo "Gerando áudio para $roteiro"
+            .venv/bin/python scripts/gerar_audio.py "$roteiro"
+            echo "$roteiro" >> processados.txt
           else
             for roteiro in roteiros/*.md; do
               slug=$(basename "$roteiro" .md)
@@ -42,6 +48,7 @@ jobs:
               if [ ! -f "$audio" ]; then
                 echo "Gerando áudio para $roteiro"
                 .venv/bin/python scripts/gerar_audio.py "$roteiro"
+                echo "$roteiro" >> processados.txt
               fi
             done
           fi
@@ -57,3 +64,33 @@ jobs:
           else
             echo "Nada novo pra commitar."
           fi
+
+      - name: Criar release com o áudio
+        run: |
+          while IFS= read -r roteiro; do
+            [ -z "$roteiro" ] && continue
+            slug=$(basename "$roteiro" .md)
+            audio="audio/${slug}.mp3"
+            [ -f "$audio" ] || { echo "Sem áudio pra $roteiro, pulando release."; continue; }
+
+            tag=$(echo "$slug" | grep -oE '^ep[0-9]+')
+            [ -z "$tag" ] && tag="$slug"
+
+            titulo=$(.venv/bin/python -c "
+import sys, yaml
+texto = open('$roteiro', encoding='utf-8').read()
+front = texto.split('---', 2)[1]
+d = yaml.safe_load(front)
+print(d.get('titulo', '$slug'))
+")
+
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "Release $tag já existe, atualizando asset."
+              gh release upload "$tag" "$audio" --clobber
+            else
+              echo "Criando release $tag"
+              gh release create "$tag" "$audio" \
+                --title "Episódio ${tag#ep}: ${titulo}" \
+                --notes "Roteiro: [$roteiro](../../blob/main/$roteiro)"
+            fi
+          done < processados.txt
