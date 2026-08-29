@@ -1,0 +1,11 @@
+apresentadores:
+  ANA:
+    voz_edge_tts: pt-BR-FranciscaNeural
+    voz_gemini_tts: Kore
+    papel: conduz o episódio, traz o conceito novo
+  BIA:
+    voz_edge_tts: pt-BR-ThalitaMultilingualNeural
+    voz_gemini_tts: Puck
+    papel: faz perguntas, pede exemplos, representa a audiência
+
+rate: "+5%"

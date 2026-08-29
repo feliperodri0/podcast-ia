@@ -1,0 +1,32 @@
+prioridade_1_labs:
+  - nome: Anthropic Research
+    url: https://www.anthropic.com/research
+    tipo: scrape
+  - nome: Transformer Circuits
+    url: https://transformer-circuits.pub/
+    tipo: scrape
+  - nome: Google DeepMind Research
+    url: https://deepmind.google/research/publications/
+    tipo: scrape
+  - nome: OpenAI
+    url: https://openai.com/news/research/
+    tipo: scrape
+  - nome: DeepSeek AI (GitHub)
+    url: https://api.github.com/orgs/deepseek-ai/repos?sort=updated
+    tipo: api
+
+prioridade_2_curadoria:
+  nome: Hugging Face Daily Papers
+  url: https://huggingface.co/api/daily_papers   # confirme o formato ao implementar
+  tipo: api
+  janela: ontem        # NÃO use o dia corrente — upvotes ainda estão subindo
+  puxar_top: 10        # puxe 10 e filtre por adequação à trilha; top-2 cego é ruim
+  ordenar_por: upvotes
+
+criterios_descarte:
+  - papers puramente de benchmark sem contribuição conceitual
+  - papers que exigem pré-requisito ainda não coberto na trilha base
+  - duplicatas (mesmo trabalho no blog do lab e no HF → manter só o blog)
+  - papers cujo apelo é a demo/pesos abertos, sem ideia nova por trás
+
+max_candidatos_por_dia: 3
