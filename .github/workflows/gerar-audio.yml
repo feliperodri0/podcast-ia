@@ -76,13 +76,7 @@ jobs:
             tag=$(echo "$slug" | grep -oE '^ep[0-9]+')
             [ -z "$tag" ] && tag="$slug"
 
-            titulo=$(.venv/bin/python -c "
-import sys, yaml
-texto = open('$roteiro', encoding='utf-8').read()
-front = texto.split('---', 2)[1]
-d = yaml.safe_load(front)
-print(d.get('titulo', '$slug'))
-")
+            titulo=$(.venv/bin/python -c "import yaml; texto=open('$roteiro', encoding='utf-8').read(); front=texto.split('---', 2)[1]; d=yaml.safe_load(front); print(d.get('titulo', '$slug'))")
 
             if gh release view "$tag" >/dev/null 2>&1; then
               echo "Release $tag já existe, atualizando asset."
