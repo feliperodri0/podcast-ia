@@ -5,7 +5,7 @@
 - [x] 03. Aprendizado supervisionado, não-supervisionado e por reforço
 - [x] 04. Redes neurais: o neurônio, camadas, backpropagation
 - [x] 05. Deep Learning e por que 2012 mudou tudo
-- [ ] 06. Embeddings: como texto vira número
+- [x] 06. Embeddings: como texto vira número
 - [ ] 07. Atenção e o Transformer
 - [ ] 08. O que é um LLM? Pré-treino, tokens, escala
 - [ ] 09. Fine-tuning, RLHF e alinhamento
