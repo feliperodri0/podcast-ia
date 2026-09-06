@@ -9,7 +9,7 @@
 - [x] 07. Atenção e o Transformer
 - [x] 08. O que é um LLM? Pré-treino, tokens, escala
 - [x] 09. Fine-tuning, RLHF e alinhamento
-- [ ] 10. RAG: por que o modelo precisa consultar coisas
+- [x] 10. RAG: por que o modelo precisa consultar coisas
 - [ ] 11. Agentes: tool use, planejamento, loops
 - [ ] 12. Mixture of Experts e eficiência
 - [ ] 13. Raciocínio: chain-of-thought e modelos de reasoning
