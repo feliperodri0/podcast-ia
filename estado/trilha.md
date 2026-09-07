@@ -10,7 +10,7 @@
 - [x] 08. O que é um LLM? Pré-treino, tokens, escala
 - [x] 09. Fine-tuning, RLHF e alinhamento
 - [x] 10. RAG: por que o modelo precisa consultar coisas
-- [ ] 11. Agentes: tool use, planejamento, loops
+- [x] 11. Agentes: tool use, planejamento, loops
 - [ ] 12. Mixture of Experts e eficiência
 - [ ] 13. Raciocínio: chain-of-thought e modelos de reasoning
 - [ ] 14. Interpretabilidade: o que acontece dentro do modelo
