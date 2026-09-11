@@ -12,7 +12,7 @@
 - [x] 10. RAG: por que o modelo precisa consultar coisas
 - [x] 11. Agentes: tool use, planejamento, loops
 - [x] 12. Mixture of Experts e eficiência
-- [ ] 13. Raciocínio: chain-of-thought e modelos de reasoning
+- [x] 13. Raciocínio: chain-of-thought e modelos de reasoning
 - [ ] 14. Interpretabilidade: o que acontece dentro do modelo
 - [ ] 15. Avaliação e limites: alucinação, benchmarks, red teaming
 - [ ] 16. Estado da arte — ponte para a trilha diária
