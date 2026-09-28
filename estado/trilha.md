@@ -14,5 +14,5 @@
 - [x] 12. Mixture of Experts e eficiência
 - [x] 13. Raciocínio: chain-of-thought e modelos de reasoning
 - [x] 14. Interpretabilidade: o que acontece dentro do modelo
-- [ ] 15. Avaliação e limites: alucinação, benchmarks, red teaming
+- [x] 15. Avaliação e limites: alucinação, benchmarks, red teaming
 - [ ] 16. Estado da arte — ponte para a trilha diária
